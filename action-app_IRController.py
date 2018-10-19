@@ -27,8 +27,8 @@ class IRController(object):
         self.start_blocking()
 
     def turnOnTV_callback(self, hermes, intent_message):
-        hermes.publish_end_session(
-            intent_message.session_id, "OK, j'allume la télé!".encode('utf-8'))
+        # Close session.
+        hermes.publish_end_session(intent_message.session_id, "")
 
         # action code goes here...
         print "[Received] intent: {}".format(intent_message.intent.intent_name)
