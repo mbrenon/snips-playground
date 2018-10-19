@@ -28,14 +28,14 @@ class IRController(object):
 
     def turnOnTV_callback(self, hermes, intent_message):
         hermes.publish_end_session(
-            intent_message.session_id, "OK, j'allume la télé.")
+            intent_message.session_id, "")
 
         # action code goes here...
         print '[Received] intent: {}'.format(intent_message.intent.intent_name)
 
         # if need to speak the execution result by tts
         hermes.publish_start_session_notification(
-            intent_message.site_id, "turnOnTV has been done", "")
+            intent_message.site_id, "TV", "IRController")
 
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self, hermes, intent_message):
