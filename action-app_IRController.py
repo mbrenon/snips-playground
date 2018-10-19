@@ -29,7 +29,8 @@ class IRController(object):
     def intent_1_callback(self, hermes, intent_message):
         # terminate the session first if not continue
         # TODO(mbrenon): ?
-        hermes.publish_end_session(intent_message.session_id, "")
+        hermes.publish_end_session(
+            intent_message.session_id, "OK, j'allume la télé.")
 
         # action code goes here...
         print '[Received] intent: {}'.format(intent_message.intent.intent_name)
