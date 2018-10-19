@@ -26,9 +26,7 @@ class IRController(object):
         # start listening to MQTT.
         self.start_blocking()
 
-    def intent_1_callback(self, hermes, intent_message):
-        # terminate the session first if not continue
-        # TODO(mbrenon): ?
+    def turnOnTV_callback(self, hermes, intent_message):
         hermes.publish_end_session(
             intent_message.session_id, "OK, j'allume la télé.")
 
