@@ -28,22 +28,18 @@ class IRController(object):
 
     def turnOnTV_callback(self, hermes, intent_message):
         hermes.publish_end_session(
-            intent_message.session_id, "")
+            intent_message.session_id, "OK, j'allume la télé!".encode('utf-8'))
 
         # action code goes here...
-        print '[Received] intent: {}'.format(intent_message.intent.intent_name)
-
-        # if need to speak the execution result by tts
-        hermes.publish_start_session_notification(
-            intent_message.site_id, "TV", "IRController")
+        print "[Received] intent: {}".format(intent_message.intent.intent_name)
 
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self, hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        if coming_intent == 'mbrenon:turnOnTV':
+        if coming_intent == "mbrenon:turnOnTV":
             self.turnOnTV_callback(hermes, intent_message)
         else:
-            print 'Unrecognized intent: ' + coming_intent
+            print "Unrecognized intent: " + coming_intent
 
     # --> Register callback function and start MQTT
     def start_blocking(self):
