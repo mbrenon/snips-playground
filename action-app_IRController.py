@@ -5,6 +5,7 @@ import ConfigParser
 
 from snipsTools import SnipsConfigParser
 from hermes_python.hermes import Hermes
+from lirconian import UnixDomainSocketLirconian
 
 CONFIG_INI = "config.ini"
 MQTT_IP_ADDR = "localhost"
