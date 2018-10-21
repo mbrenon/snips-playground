@@ -31,7 +31,18 @@ class IRController(object):
         # Close session.
         hermes.publish_end_session(intent_message.session_id, "")
 
-        # action code goes here...
+        # Test some Lirconian stuff:
+        lirc = UnixDomainSocketLirconian()
+        lirc.setVerbosity(True)
+        version = lirc.get_version()
+        print("Lircd version: {0}".format(version))
+        remotes = lirc.get_remotes()
+        i = 0
+        for remote in remotes:
+            print(str(i) + ":\t" + remote)
+            i = i + 1
+
+    # action code goes here...
         print "[Received] intent: {}".format(intent_message.intent.intent_name)
 
     # --> Master callback function, triggered everytime an intent is recognized
