@@ -1,2 +1,3 @@
 hermes-python>=0.1
 lirconian>=0.2.1
+enum34>=1.1.6
