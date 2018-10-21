@@ -24,13 +24,6 @@ class IRController(object):
             print e.message
             raise
 
-        # start listening to MQTT.
-        self.start_blocking()
-
-    def turnOnTV_callback(self, hermes, intent_message):
-        # Close session.
-        hermes.publish_end_session(intent_message.session_id, "")
-
         # Test some Lirconian stuff:
         lirc = UnixDomainSocketLirconian()
         lirc.setVerbosity(True)
@@ -42,7 +35,14 @@ class IRController(object):
             print(str(i) + ":\t" + remote)
             i = i + 1
 
-    # action code goes here...
+        # start listening to MQTT.
+        self.start_blocking()
+
+    def turnOnTV_callback(self, hermes, intent_message):
+        # Close session.
+        hermes.publish_end_session(intent_message.session_id, "")
+
+        # action code goes here...
         print "[Received] intent: {}".format(intent_message.intent.intent_name)
 
     # --> Master callback function, triggered everytime an intent is recognized
