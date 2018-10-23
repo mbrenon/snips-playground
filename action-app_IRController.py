@@ -13,8 +13,9 @@ MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
 MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
-IRSEND = ["irsend", "send_once", "AcerBS312"]
-POWER_KEY = "power"
+
+def acer_power():
+    subprocess.call(["irsend", "send_once", "AcerBS312", "power"])
 
 
 class IRController(object):
@@ -36,7 +37,7 @@ class IRController(object):
         hermes.publish_end_session(intent_message.session_id, "")
 
         # Send IR command
-        subprocess.call(IRSEND.append(POWER_KEY))
+        acer_power()
 
         # action code goes here...
         print "[Received] intent: {}".format(intent_message.intent.intent_name)
