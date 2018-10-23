@@ -15,7 +15,7 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 
 def acer_power():
-    subprocess.call(["irsend", "send_once", "AcerBS312", "power"])
+    subprocess.call(["irsend", "send_once", "ACER_BS-312", "KEY_POWER"])
 
 
 class IRController(object):
