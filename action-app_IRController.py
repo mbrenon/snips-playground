@@ -38,18 +38,20 @@ class IRController(object):
         hermes.publish_end_session(intent_message.session_id, "")
 
         # Send IR command.
-        print "turnOnTV"
+        print "<turnOnTV>"
         acer_power()
+        print "<turnOnTV/>"
 
     def turnOffTV_callback(self, hermes, intent_message):
         # Close session.
         hermes.publish_end_session(intent_message.session_id, "")
 
         # Send IR command.
-        print "turnOffTV"
+        print "<turnOffTV>"
         acer_power()
-        time.sleep(1)
+        time.sleep(3)
         acer_power()
+        print "<turnOffTV/>"
 
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self, hermes, intent_message):
