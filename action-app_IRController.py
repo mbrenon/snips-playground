@@ -4,6 +4,7 @@
 import ConfigParser
 
 import subprocess
+import time
 
 from snipsTools import SnipsConfigParser
 from hermes_python.hermes import Hermes
@@ -36,17 +37,27 @@ class IRController(object):
         # Close session.
         hermes.publish_end_session(intent_message.session_id, "")
 
-        # Send IR command
+        # Send IR command.
+        print "turnOnTV"
         acer_power()
 
-        # action code goes here...
-        print "[Received] intent: {}".format(intent_message.intent.intent_name)
+    def turnOffTV_callback(self, hermes, intent_message):
+        # Close session.
+        hermes.publish_end_session(intent_message.session_id, "")
+
+        # Send IR command.
+        print "turnOffTV"
+        acer_power()
+        time.sleep(1)
+        acer_power()
 
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self, hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
         if coming_intent == "mbrenon:turnOnTV":
             self.turnOnTV_callback(hermes, intent_message)
+        elif coming_intent == "mbrenon:turnOffTV":
+            self.turnOffTV_callback(hermes, intent_message)
         else:
             print "Unrecognized intent: " + coming_intent
 
