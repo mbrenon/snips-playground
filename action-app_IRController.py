@@ -3,14 +3,18 @@
 
 import ConfigParser
 
+import subprocess
+
 from snipsTools import SnipsConfigParser
 from hermes_python.hermes import Hermes
-from lirconian import UnixDomainSocketLirconian
 
 CONFIG_INI = "config.ini"
 MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
 MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
+
+IRSEND = ["irsend", "send_once", "AcerBS312"]
+POWER_KEY = "power"
 
 
 class IRController(object):
@@ -24,23 +28,15 @@ class IRController(object):
             print e.message
             raise
 
-        # Test some Lirconian stuff:
-        lirc = UnixDomainSocketLirconian()
-        lirc.setVerbosity(True)
-        version = lirc.get_version()
-        print("Lircd version: {0}".format(version))
-        remotes = lirc.get_remotes()
-        i = 0
-        for remote in remotes:
-            print(str(i) + ":\t" + remote)
-            i = i + 1
-
         # start listening to MQTT.
         self.start_blocking()
 
     def turnOnTV_callback(self, hermes, intent_message):
         # Close session.
         hermes.publish_end_session(intent_message.session_id, "")
+
+        # Send IR command
+        subprocess.call(IRSEND.append(POWER_KEY))
 
         # action code goes here...
         print "[Received] intent: {}".format(intent_message.intent.intent_name)
